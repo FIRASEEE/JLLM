@@ -30,6 +30,7 @@ public class JLLM {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.err.println("hola");
              ApplicationView view;
              IRepository repository;
              JLLMModel model;

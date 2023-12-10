@@ -17,7 +17,6 @@ import java.lang.InterruptedException;
  * @author usuario
  */
 public class SmartLLM implements ILLM {
-
     @Override
     public String getIdentifier() {
      return "SmartLLM";
