@@ -20,16 +20,26 @@ public class Frase {
         this.contenido = contenido;
     }
 public static Frase getfraseFromDelimitedString(String linea ,String delimiter){
-    
-      String[] frase=linea.split(delimiter);
-      if(frase.length!=3){
+   String[] frase=null;
+     
+     frase=linea.split(delimiter);
+      if(frase.length==3){
+     String  tipo=frase[0];
+     int longitud=Integer.parseInt(frase[1]);
+       String contenido = frase[2];
+   return new Frase(tipo,longitud,contenido);
+    }
+      else if(frase.length==4){
+        String tipo=frase[0];
+       int longitud=Integer.parseInt(frase[1]);
+       String contenido = frase[2]+","+frase[3];
+      contenido=contenido.replace("\"", "");
+       return new Frase(tipo,longitud,contenido);
+      }
+      else{
           return null;
       }
-      String tipo=frase[0];
-    int longitud=Integer.parseInt(frase[1]);
-   String contenido=frase[2];
-   return new Frase(tipo,longitud,contenido);
-}
+}  
     public String getTipo() {
         return tipo;
     }

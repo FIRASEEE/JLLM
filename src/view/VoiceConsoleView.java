@@ -15,7 +15,9 @@ import io.github.jonelo.jAdapterForNativeTTS.engines.exceptions.SpeechEngineCrea
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Message;
@@ -219,15 +221,15 @@ public class VoiceConsoleView extends SimpleConsoleView {
     private void nuevaConversacion() {
      String entrada="";
       ArrayList<Message> mensajes=new ArrayList();
-      while (!entrada.equals("/salir")){
+    while (!entrada.equals("/salir")){
       Instant instant = Instant.now();
-    long time = instant.getEpochSecond();
-    String emisor = "Yo";
-    entrada = readString("escribe : ");
-     Message mensaje=new Message(emisor, time, entrada);   
-     if(!entrada.equals("/salir")){
-     mensajes.add(mensaje);
-     }
+      long time = instant.getEpochSecond();
+      String emisor = "Yo";
+      entrada = readString("escribe : ");
+      Message mensaje=new Message(emisor, time, entrada);   
+      if(!entrada.equals("/salir")){
+      mensajes.add(mensaje);
+      }
      controller.nuevaConversacion(mensaje,mensajes);
          }
     }
@@ -242,23 +244,45 @@ public class VoiceConsoleView extends SimpleConsoleView {
     }
     
     private void exportar() {
-       if(controller.exportar()){
+           String pregunta=" Quieres exportar todas las conversaciones  ";
+         if(!yesOrNo(pregunta)){
+          int numero=readInt("introduzca el numero total  de las conversaciones que quieras exportar : ");
+          Set<Integer> check =new HashSet<>();
+             String numeros;
+          do{  
+           numeros=readString("introduzca los numeros de conversaciones que quieras exportar\n"
+                    + "Por favor los numeros deben separados por espacio \n");
+          } while(numeros.split(" ").length!=numero);
+          String [] numbers=numeros.split(" ");
+        
+          for(int i=0;i<numero;i++){
+           check.add(Integer.parseInt(numbers[i]));
+          }
+          if(controller.exportarAlgunos(check)){
         System.out.println("Exportacion con exito");    
           }
-      else{
-    System.err.println(" error de Exportacion");
-    
+         else{
+          System.err.println(" error de Exportacion");
+            }
+          }
+         else{
+         if(controller.exportarTodos()){
+          System.out.println("Exportacion con exito");    
+          }
+         else{
+       System.err.println(" error de Exportacion");
 }
 }
+}
+
     public void setVoice(String text){
         
          try {
-        this.speechEngine = SpeechEngineNative.getInstance();
-        voicePreferences.setLanguage("es"); //  ISO-639-1
-        voicePreferences.setCountry("ES"); // ISO 3166-1 Alpha-2 code
-         this.voice = speechEngine.findVoiceByPreferences(voicePreferences);
+          this.speechEngine = SpeechEngineNative.getInstance();
+          voicePreferences.setLanguage("es"); 
+          voicePreferences.setCountry("ES"); 
+          this.voice = speechEngine.findVoiceByPreferences(voicePreferences);
 
-        // simple fallback just in case our preferences didn't match any voice
         if (voice == null) {
             System.out.printf("Voz no encontrada %s%n", voicePreferences);
         }
@@ -270,7 +294,7 @@ public class VoiceConsoleView extends SimpleConsoleView {
     }
     }
   
-public void sleep(){
+  public void sleep(){
      try {
              Thread.sleep(2000);
          } catch (InterruptedException ex) {

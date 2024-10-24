@@ -32,23 +32,20 @@ Path path =pathToFileInFolderOnDesktop("jLLM","RandomCSV.csv");
         frases=importarCSV(); 
         int num;
         int max=frases.size();
-        if(entrada.contains("hola")||entrada.contains("Buenas")){
-            do{  
-        
-         num =random.nextInt( max);
-            }while(!frases.get(num).getTipo().equals("saludo")); 
+   if(entrada.contains("hola")||entrada.contains("Buenas")){
+        do{  
+            num =random.nextInt( max);
+         }while(!frases.get(num).getTipo().equals("saludo")); 
         return frases.get(num).getContenido();
-    }
+         }
         else if(entrada.contains("?")){
-            do{  
-        
+         do{  
          num =random.nextInt( max);
-            }while(!frases.get(num).getTipo().equals("afirmacion")); 
-        return frases.get(num).getContenido();
+           }while(!frases.get(num).getTipo().equals("afirmacion")); 
+         return frases.get(num).getContenido();
     }
-
-            num=random.nextInt(max);
-            return frases.get(num).getContenido();
+         num=random.nextInt(max);
+         return frases.get(num).getContenido();
     }
     public ArrayList<Frase> importarCSV() {
         String delimiter=",";

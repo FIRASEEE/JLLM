@@ -4,6 +4,7 @@
  */
 package controller;
 import java.util.ArrayList;
+import java.util.Set;
 import view.ApplicationView;
 import model.JLLMModel;
 import model.Message;
@@ -73,8 +74,8 @@ public class JLLMController {
   return model.importar();
     }
 
-    public boolean exportar() {
-       return model.exportar();
+    public boolean exportarTodos() {
+       return model.exportarTodos();
     }
   public boolean conversacionesExiste(){
       if(!model.getConversaciones().isEmpty()){
@@ -84,4 +85,11 @@ public class JLLMController {
           return false;
       }
   }    
+
+    public boolean exportarAlgunos(Set<Integer> check) {
+   return model.exportarAlgunos(check);
+    }
+
+    
+  
 }

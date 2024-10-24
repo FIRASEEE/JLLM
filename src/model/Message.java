@@ -29,8 +29,8 @@ public class Message implements Serializable{
    public void formatoMensaje(){
        Instant instant=Instant.ofEpochSecond(fecha);
        LocalDateTime date=LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-          String fechaActual= date.format(formatter);
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+       String fechaActual= date.format(formatter);
        System.out.println(String.format("[%s] %s : %s",fechaActual,this.emisor
                ,this.contenido));
    }

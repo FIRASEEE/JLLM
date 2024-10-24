@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.time.Instant;
 import static com.coti.tools.Esdia.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 /**
  *
  * @author usuario
@@ -108,8 +110,8 @@ public class SimpleConsoleView extends ApplicationView {
     }
 
     private void menuConversaciones() {
-           if(controller.conversacionesExiste()){
-        controller.listarConversaciones();
+     if(controller.conversacionesExiste()){
+       controller.listarConversaciones();
        String pregunta ="quieres mostrar una conversacion completa y\n? : ";
        if(yesOrNo(pregunta)){
           int numero=readInt("introduzca el numero de la conversacion que quieras mirar : ");
@@ -118,43 +120,42 @@ public class SimpleConsoleView extends ApplicationView {
           }
           else{
               System.err.println("no se puede mostrar una conversacion con este numero");
-          }
-           
-       }
-    }
+            }
+            }
+            }
            else{
-               System.out.println("No existe conversaciones para listar");
+            System.out.println("No existe conversaciones para listar");
            }
     }
 
     private void eliminarConversacion() {
         if(controller.conversacionesExiste()){
          int numero=readInt("introduzca el numero de la conversacion que quieras eliminar : ");
-       if(controller.eliminarConversacion(numero)){
+        if(controller.eliminarConversacion(numero)){
            System.out.println("Conversacion eliminada con exito");
-       }
+        }
        else{
            System.err.println("no se puede eliminar con este numero ");
-       }
-      }
+        }
+        }
         else{
             System.out.println("No existe Conversaciones para eliminar");
         }
     }
       
-    private void nuevaConversacion() {
+   private void nuevaConversacion() {
      String entrada="";
-      ArrayList<Message> mensajes=new ArrayList();
-            while (!entrada.equals("/salir")){
+     ArrayList<Message> mensajes=new ArrayList();
+      while (!entrada.equals("/salir")){
         Instant instant = Instant.now();
-    long time = instant.getEpochSecond();
-    String emisor = "Yo";
-    entrada = readString("escribe : ");
-     Message mensaje=new Message(emisor, time, entrada);   
-     if(!entrada.equals("/salir")){
-     mensajes.add(mensaje);
-     }
-     controller.nuevaConversacion(mensaje,mensajes);
+        long time = instant.getEpochSecond();
+        String emisor = "Yo";
+        entrada = readString("escribe : ");
+        Message mensaje=new Message(emisor, time, entrada);   
+        if(!entrada.equals("/salir")){
+        mensajes.add(mensaje);
+          }
+        controller.nuevaConversacion(mensaje,mensajes);
          }
     }
     private void importar() {
@@ -168,12 +169,34 @@ public class SimpleConsoleView extends ApplicationView {
     }
     
     private void exportar() {
-       if(controller.exportar()){
+        String pregunta=" Quieres exportar todas las conversaciones  ";
+         if(!yesOrNo(pregunta)){
+          int numero=readInt("introduzca el numero total  de las conversaciones que quieras exportar : ");
+          Set<Integer> check =new HashSet<>();
+             String numeros;
+          do{  
+           numeros=readString("introduzca los numeros de conversaciones que quieras exportar\n"
+                    + "Por favor los numeros deben separados por espacio \n");
+          } while(numeros.split(" ").length!=numero);
+          String [] numbers=numeros.split(" ");
+        
+          for(int i=0;i<numero;i++){
+           check.add(Integer.parseInt(numbers[i]));
+          }
+          if(controller.exportarAlgunos(check)){
         System.out.println("Exportacion con exito");    
           }
-      else{
-    System.err.println(" error de Exportacion");
-    
+         else{
+          System.err.println(" error de Exportacion");
+            }
+          }
+         else{
+         if(controller.exportarTodos()){
+          System.out.println("Exportacion con exito");    
+          }
+         else{
+       System.err.println(" error de Exportacion");
 }
 }
+} 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/view/VoiceConsoleView.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/view/SimpleConsoleView.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/Frase.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/SmartLLM.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/jLLM/JLLM.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/RandomCSVLLM.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/view/ApplicationView.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/JLLMModel.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/controller/JLLMController.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/Message.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/XMLRepository.java</file>
+            <file>file:/Users/usuario/NetBeansProjects/JLLM/src/model/Conversation.java</file>
+        </group>
+    </open-files>
+</project-private>

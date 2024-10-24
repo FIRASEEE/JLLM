@@ -14,6 +14,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -34,16 +36,16 @@ public class JLLMModel {
       public void nuevaConversacion(Message message, ArrayList<Message> mensajes){
           
           if(message.getContenido().contains("/salir")&&(mensajes.isEmpty())) {
-                     System.out.println("...Conversacion vacia  ");
-                   System.out.println("...Chat Closed  ");
+                  System.out.println("...Conversacion vacia  ");
+                  System.out.println("...Conversacion Terminada  ");
           }
           else   if(message.getContenido().equals("/salir")&& !(mensajes.isEmpty())){
-                int max=mensajes.size()-1;
-           long fecha_in=mensajes.get(0).getFecha();
-           long fecha_fin=mensajes.get(max).getFecha();
-               Conversation conversacion=new Conversation(fecha_in,fecha_fin,mensajes);
-           conversaciones.add(conversacion);
-          System.out.println("...Chat Closed  ");
+              int max=mensajes.size()-1;
+              long fecha_in=mensajes.get(0).getFecha();
+              long fecha_fin=mensajes.get(max).getFecha();
+              Conversation conversacion=new Conversation(fecha_in,fecha_fin,mensajes);
+              conversaciones.add(conversacion);
+              System.out.println("...Conversacion Terminada ");
           }     
           else{
            message.formatoMensaje();
@@ -57,24 +59,20 @@ public class JLLMModel {
     public boolean importar() {
        ArrayList<Conversation> conversacionesImportadas;
        conversacionesImportadas = repository.importConversaciones();
-       if(conversacionesImportadas!=null){
-       
+       if(conversacionesImportadas!=null){  
         for (Conversation conv :conversacionesImportadas){
            if(!conversaciones.contains(conv)){
              conversaciones.add(conv);
-           } 
-            
+           }          
         }
-      
-   
         return true;
-    }
+        }
     else{
         return false;
     }
     }
 
-    public boolean exportar() {
+    public boolean exportarTodos() {
      if(repository.exportConversaciones(conversaciones)){
             return true;
     }
@@ -108,7 +106,7 @@ public class JLLMModel {
                     try {
                         ois.close();
                     } catch (IOException ex) {
-                        // Dejamos el error para la depuración, por el canal err.
+                        
                      System.err.println("Error durante la deserialización: " + ex.getMessage());
                         return false;
                     }
@@ -193,6 +191,21 @@ public class JLLMModel {
          return false;
      }
 }
+
+
+    public boolean exportarAlgunos(Set<Integer> check) {
+       ArrayList<Conversation> conversacionesAExportar=new ArrayList();
+     List<Integer> listaNumeros= new ArrayList<>(check);
+       for (Integer num: listaNumeros){
+      conversacionesAExportar.add(this.conversaciones.get(num));
+         }
+      if(repository.exportConversaciones(conversacionesAExportar)){
+        return true;
+         }
+      else{
+         return false;
+       }  
+    }
 
 
 }
